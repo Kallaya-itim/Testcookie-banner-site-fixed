@@ -22,6 +22,11 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          
+          {/* OneTrust Cookie Settings Button */}
+          <button id="ot-sdk-btn" className="ot-sdk-show-settings">
+            Cookie Settings
+          </button>
         </body>
       </Html>
     );
