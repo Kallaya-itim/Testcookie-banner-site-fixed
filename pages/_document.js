@@ -1,153 +1,33 @@
-import { useEffect, useState } from "react";
+@@ -1,27 +1,32 @@
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-export default function CookieConsent() {
-  const [showBanner, setShowBanner] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
-  const [cookieSettings, setCookieSettings] = useState({
-    functional: false,
-    analytics: false,
-    marketing: false,
-  });
-
-  useEffect(() => {
-    const consent = localStorage.getItem("cookieConsent");
-    if (!consent) setShowBanner(true);
-  }, []);
-
-  const handleCookieChange = (event) => {
-    const { name, checked } = event.target;
-    setCookieSettings((prevSettings) => ({
-      ...prevSettings,
-      [name]: checked,
-    }));
-  };
-
-  const acceptCookies = () => {
-    localStorage.setItem("cookieConsent", JSON.stringify(cookieSettings));
-    setShowBanner(false);
-    logConsent(cookieSettings);
-  };
-
-  const logConsent = (consent) => {
-    // log the consent data to an external service or local database
-    console.log("User consent logged:", consent);
-    // Here you can send the consent data to your backend or a service like Google Analytics
-  };
-
-  const toggleDetails = () => {
-    setShowDetails(!showDetails);
-  };
-
-  if (!showBanner) return null;
-
-  return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        background: "#222",
-        color: "#fff",
-        padding: "20px",
-        textAlign: "center",
-        zIndex: 1000,
-        fontFamily: "Arial, sans-serif",
-        borderTop: "2px solid #4CAF50",
-      }}
-    >
-      <p style={{ fontSize: "16px" }}>
-        We use cookies to improve your experience on our website. You can
-        choose which cookies to accept.
-      </p>
-      <div style={{ marginBottom: "15px" }}>
-        <label style={{ marginRight: "10px" }}>
-          <input
-            type="checkbox"
-            name="functional"
-            checked={cookieSettings.functional}
-            onChange={handleCookieChange}
-          />
-          Functional Cookies
-        </label>
-        <br />
-        <label style={{ marginRight: "10px" }}>
-          <input
-            type="checkbox"
-            name="analytics"
-            checked={cookieSettings.analytics}
-            onChange={handleCookieChange}
-          />
-          Analytics Cookies
-        </label>
-        <br />
-        <label style={{ marginRight: "10px" }}>
-          <input
-            type="checkbox"
-            name="marketing"
-            checked={cookieSettings.marketing}
-            onChange={handleCookieChange}
-          />
-          Marketing Cookies
-        </label>
-      </div>
-      <button
-        onClick={acceptCookies}
-        style={{
-          backgroundColor: "#4CAF50",
-          color: "#fff",
-          padding: "12px 24px",
-          border: "none",
-          cursor: "pointer",
-          borderRadius: "5px",
-          fontSize: "16px",
-        }}
-      >
-        Accept
-      </button>
-      <br />
-      <button
-        onClick={toggleDetails}
-        style={{
-          backgroundColor: "#222",
-          color: "#fff",
-          padding: "8px 16px",
-          border: "1px solid #fff",
-          cursor: "pointer",
-          borderRadius: "5px",
-          fontSize: "14px",
-          marginTop: "10px",
-        }}
-      >
-        Cookie Settings
-      </button>
-
-      {showDetails && (
-        <div
-          style={{
-            background: "#333",
-            color: "#fff",
-            marginTop: "15px",
-            padding: "10px",
-            textAlign: "left",
-            borderRadius: "5px",
-          }}
-        >
-          <h4>Cookie Details:</h4>
-          <p>
-            <strong>Functional Cookies:</strong> These cookies are necessary
-            for the website to function properly.
-          </p>
-          <p>
-            <strong>Analytics Cookies:</strong> These cookies help us analyze
-            how our website is used, such as traffic data and user behavior.
-          </p>
-          <p>
-            <strong>Marketing Cookies:</strong> These cookies track your
-            browsing habits for personalized advertisements and marketing.
-          </p>
-        </div>
-      )}
-    </div>
-  );
-}
+class MyDocument extends Document {
+  render() {
+    return (
+      <Html lang="en">
+        <Head>
+          {/* OneTrust Script for Cookie Consent */}
+          <script
+            src="https://cdn-apac.onetrust.com/scripttemplates/otSDKStub.js"
+            data-document-language="true"
+            type="text/javascript"
+            charset="UTF-8"
+            data-domain-script="0197c9d8-18e5-76e1-aa14-df0d8ac7a7a6"
+          ></script>
+          <script type="text/javascript">
+            {`
+              function OptanonWrapper() { }
+            `}
+          </script>
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+          
+          {/* OneTrust Cookie Settings Button */}
+          <button id="ot-sdk-btn" className="ot-sdk-show-settings">
+            Cookie Settings
+          </button>
+        </body>
+      </Html>
+    );
