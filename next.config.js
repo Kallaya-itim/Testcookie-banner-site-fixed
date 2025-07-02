@@ -1,3 +1,2 @@
-module.exports = {
-  reactStrictMode: true,
-};
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init
