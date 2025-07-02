@@ -1,4 +1,3 @@
-@@ -1,27 +1,32 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
@@ -23,11 +22,10 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          
-          {/* OneTrust Cookie Settings Button */}
-          <button id="ot-sdk-btn" className="ot-sdk-show-settings">
-            Cookie Settings
-          </button>
         </body>
       </Html>
     );
+  }
+}
+
+export default MyDocument;
